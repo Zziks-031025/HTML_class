@@ -1,0 +1,146 @@
+/* 定义CSS变量（自定义属性）便于主题管理和统一风格 */
+:root {
+    --primary-color: #2c3e50;       /* 主深色，用于文字和重点元素 */
+    --secondary-color: #3498db;     /* 主品牌蓝色 */
+    --accent-color: #e74c3c;        /* 强调色/警示色（红色） */
+    --text-color: #333;             /* 默认文字颜色 */
+    --card-bg: rgba(255, 255, 255, 0.9); /* 卡片半透明白色背景 */
+}
+
+/* 基础页面样式 */
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* 柔和的渐变背景 */
+    min-height: 100vh;             /* 最小高度为整个视口高度 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;       /* 垂直居中 */
+    align-items: center;           /* 水平居中 */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 现代字体栈 */
+    padding: 20px;                 /* 内容周围留白 */
+    margin: 0;                     /* 清除默认边距 */
+}
+
+/* 简历卡片容器 */
+.resume-container {
+    display: flex;
+    flex-wrap: wrap;               /* 小屏幕时允许卡片换行 */
+    justify-content: center;       /* 卡片水平居中 */
+    gap: 30px;                     /* 卡片间距 */
+    max-width: 1200px;             /* 容器最大宽度 */
+    width: 100%;                   /* 宽度100%直到最大宽度 */
+}
+
+/* 单个简历卡片样式 */
+.resume-card {
+    background: var(--card-bg);     /* 使用CSS变量设置背景 */
+    border-radius: 15px;           /* 圆角 */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* 微妙的阴影增加层次感 */
+    padding: 25px;                 /* 内边距 */
+    transition: all 0.3s ease;     /* 平滑的悬停效果 */
+    flex: 1;                       /* 弹性宽度 */
+    min-width: 300px;              /* 卡片最小宽度 */
+    max-width: 350px;              /* 卡片最大宽度 */
+}
+
+/* 卡片悬停效果 */
+.resume-card:hover {
+    transform: scale(1.05);        /* 悬停时轻微放大 */
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15); /* 悬停时阴影增强 */
+}
+
+/* 卡片标题样式 */
+.card-header {
+    font-size: 1.8em;
+    color: white;
+    padding: 15px;
+    margin: -25px -25px 20px -25px; /* 负边距使标题延伸至卡片边缘 */
+    background: linear-gradient(45deg, var(--secondary-color), #ff557f); /* 渐变背景 */
+    border-radius: 15px 15px 0 0;  /* 仅圆角顶部 */
+    text-align: center;
+    letter-spacing: 1px;           /* 字母间距 */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1); /* 文字阴影 */
+}
+
+/* 信息项样式（标签+内容） */
+.info-item {
+    display: flex;
+    margin-bottom: 15px;           /* 项与项之间的间距 */
+    align-items: center;           /* 垂直居中 */
+}
+
+/* 信息图标样式 */
+.info-icon {
+    font-size: 1.2em;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;            /* 图标与文字间距 */
+    color: var(--secondary-color); /* 使用品牌色 */
+    transition: all 0.3s ease;     /* 平滑的悬停效果 */
+}
+
+/* 图标悬停效果 */
+.info-icon:hover {
+    transform: rotate(15deg) skew(-5deg); /* 有趣的变形效果 */
+    color: var(--accent-color);    /* 变为强调色 */
+}
+
+/* 信息标签样式 */
+.info-label {
+    font-weight: 600;              /* 半粗体 */
+    min-width: 80px;              /* 固定宽度保持对齐 */
+    color: var(--primary-color);   /* 深色文字 */
+}
+
+/* 信息内容样式 */
+.info-content {
+    flex: 1;                       /* 占据剩余空间 */
+    color: var(--text-color);      /* 默认文字颜色 */
+}
+
+/* 个人头像样式 */
+.profile-image {
+    width: 100%;
+    max-width: 150px;              /* 限制图片大小 */
+    border-radius: 8px;            /* 轻微圆角 */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* 微阴影 */
+    display: block;
+    margin: 0 auto 20px;           /* 居中并设置下边距 */
+    transition: transform 0.3s ease; /* 平滑的悬停效果 */
+}
+
+/* 头像悬停效果 */
+.profile-image:hover {
+    transform: scale(1.05);        /* 轻微放大 */
+}
+
+/* 章节标题样式 */
+.section-title {
+    font-size: 3em;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--secondary-color); /* 下划线效果 */
+    padding-bottom: 5px;           /* 文字与线间距 */
+    margin: 25px 0 15px;          /* 垂直间距 */
+}
+
+/*内容*/
+.me{
+	font-size: 1.3em;
+}
+
+/* 自我介绍文字样式 */
+.self-intro {
+    line-height: 1.6;              /* 行高提升可读性 */
+    text-align: justify;           /* 两端对齐 */
+}
+
+
+
+/* 移动端响应式设计 */
+@media (max-width: 768px) {
+    .resume-card {
+        min-width: 100%;           /* 小屏幕时卡片占满宽度 */
+    }
+}

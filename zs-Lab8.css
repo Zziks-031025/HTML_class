@@ -1,0 +1,140 @@
+/* 基础页面样式 */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column; /* 垂直排列元素 */
+    justify-content: flex-start; /* 顶部对齐 */
+    align-items: center;
+    background: linear-gradient(135deg, #55ffff 0%, #00aaff 100%);
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    perspective: 1200px; /* 3D透视距离 */
+}
+
+/* 3D场景容器 */
+.scene {
+    position: relative;
+    width: 600px;
+    height: 800px; /* 占据视口70%高度 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+    transform: rotateX(-30deg); /* 整个场景倾斜30度 */
+    margin-top: 30px; /* 与标题保持距离 */
+}
+
+/* 图片旋转容器 */
+.container {
+    position: relative;
+    width: 300px; /* 增大容器尺寸 */
+    height: 300px;
+    transform-style: preserve-3d;
+    transition: transform 1s ease;
+    transform-origin: center center; /* 旋转中心设置为块中心 */
+}
+
+/* 单个图片块样式 */
+.image-box {
+    position: absolute;
+    width: 280px; /* 增大图片显示尺寸 */
+    height: 380px;
+    border-radius: 15px; /* 更大的圆角 */
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); /* 更强的阴影 */
+    transition: all 0.5s ease;
+    transform-style: preserve-3d;
+}
+
+/* 图片样式 */
+.image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* 设置4个图片块的初始3D位置 */
+.image-box:nth-child(1) {
+    transform: rotateY(0deg) translateZ(400px); /* 增大旋转半径 */
+}
+
+.image-box:nth-child(2) {
+    transform: rotateY(90deg) translateZ(400px);
+}
+
+.image-box:nth-child(3) {
+    transform: rotateY(180deg) translateZ(400px);
+}
+
+.image-box:nth-child(4) {
+    transform: rotateY(270deg) translateZ(400px);
+}
+
+/* 悬停效果 - 旋转动画 */
+.scene:hover .container {
+    animation: rotate 12s infinite linear;
+}
+
+/* 悬停时图片块的放大效果 */
+.scene:hover .image-box {
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4); /* 悬停时阴影更强 */
+}
+
+.scene:hover .image-box img {
+    transform: scale(1.08); /* 悬停时轻微放大 */
+}
+
+/* 旋转动画定义 */
+@keyframes rotate {
+    0% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+
+/* 标题样式 */
+.title {
+    width: 100%;
+    text-align: center;
+    color: white;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    font-size: 32px; /* 增大标题字号 */
+    margin-top: 40px; /* 顶部间距 */
+    margin-bottom: 20px; /* 底部间距 */
+    padding: 10px 0;
+    background-color: rgba(255, 255, 255, 0.2); /* 半透明背景 */
+    backdrop-filter: blur(5px); /* 背景模糊效果 */
+    border-radius: 10px;
+    max-width: 80%; /* 限制最大宽度 */
+}
+
+/* 响应式设计 - 适配小屏幕 */
+@media (max-width: 768px) {
+    .scene {
+        transform: rotateX(30deg) scale(0.7); /* 小屏幕上缩小 */
+        height: 60vh;
+    }
+    
+    .image-box {
+        width: 220px;
+        height: 300px;
+    }
+    
+    .title {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+    
+    /* 调整小屏幕上的旋转半径 */
+    .image-box:nth-child(1),
+    .image-box:nth-child(2),
+    .image-box:nth-child(3),
+    .image-box:nth-child(4) {
+        transform: rotateY(calc(var(--i) * 90deg)) translateZ(300px);
+    }
+}

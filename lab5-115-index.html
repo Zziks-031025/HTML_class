@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人信息登记表</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        fieldset {
+			height: 800px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        legend {
+            font-weight: bold;
+            color: #444;
+            padding: 0 15px;
+            font-size: 1.1em;
+        }
+        
+        .form-group {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+        }
+        
+        label {
+            display:inline-block;
+            width:100px;/*固定宽度 */
+			color: #555;
+            font-weight: bold;
+			padding:1em;
+            margin-right:10px;
+			text-align-last:justify;/*最后一行两端对齐*/
+			overflow:hidden;/*隐藏溢出部分*/
+        }
+        
+        input[type="text"],
+        input[type="number"],
+        input[type="tel"],
+        input[type="email"],
+        input[type="date"],
+        input[type="password"],
+        select,
+        textarea {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            flex-grow: 1; /* 输入框占据剩余空间 */
+            max-width: 400px; /* 限制最大宽度 */
+        }
+        
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+        
+        .radio-group {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+        }
+        
+        .radio-option {
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .radio-option label {
+            width: auto;
+            font-weight: normal;
+            margin-left: 5px;
+        }
+        
+        textarea {
+            height: 100px;
+        }
+        
+        .buttons {
+            margin-top: 30px;
+            text-align: left;
+        }
+        
+        input[type="submit"], 
+        input[type="reset"] {
+            padding: 10px 20px;
+            margin: 0 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        
+        input[type="reset"] {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        input[type="reset"]:hover {
+            background-color: #d32f2f;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <h1>个人信息登记表</h1>
+    <form action="#" method="post">
+        <fieldset>
+            <legend>基本信息</legend>
+            
+            <div class="form-group">
+                <label for="name" >姓名</label>
+                <input type="text" id="name" name="name" >
+            </div>
+            
+            <div class="form-group">
+                <label for="age" >年龄</label>
+                <input type="number" id="age" name="age" min="1" max="120" >
+				
+            </div>
+            
+            <div class="form-group">
+                <label >性别</label>
+                <div class="radio-group">
+                    <span class="radio-option"><input type="radio" id="male" name="gender" value="male" checked> <label for="male">男</label></span>
+                    <span class="radio-option"><input type="radio" id="female" name="gender" value="female"> <label for="female">女</label></span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone" >电话</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{11}" placeholder="11位手机号" >
+            </div>
+            
+            <div class="form-group">
+                <label for="email">邮箱</label>
+                <input type="email" id="email" name="email" placeholder="example@domain.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="birthdate">出生日期</label>
+                <input type="date" id="birthdate" name="birthdate">
+            </div>
+			
+			<div class="form-group">
+                <label for="education">学历</label>
+                <select id="education" name="education">
+                    <option value="">--请选择--</option>
+                    <option value="high-school">高中及以下</option>
+                    <option value="college">大专</option>
+                    <option value="bachelor">本科</option>
+                    <option value="master">硕士</option>
+                    <option value="phd">博士</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="idcard">身份证</label>
+                <div class="file-input-wrapper">
+					<input type="file" id="idcard" name="idcard" accept="image/*,.pdf">
+					
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="remarks">备注</label>
+                <textarea id="remarks" name="remarks" placeholder="其他需要说明的信息..."></textarea>
+            </div>
+        
+        <div class="buttons">
+            <input type="submit" value="提交信息">
+            <input type="reset" value="重置表单">
+        </div>
+        </fieldset>
+        
+        
+    </form>
+	
+
+</body>
+</html>

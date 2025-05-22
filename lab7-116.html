@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>个人简历表单</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="Lab7.css">
+</head>
+<body>
+    <form action="#" method="post" class="resume-container">
+        <div class="resume-header">
+            <h1>个人简历表单</h1>
+        </div>
+        
+        <div class="resume-content">
+            <!-- 基本信息区 -->
+            <div class="section-group">
+                <div class="photo-section">
+                    <div class="photo-carousel">
+                        <div class="carousel-track">
+                            <img src="yan.jpg" alt="个人照片">
+                            <img src="red.jpg" alt="个人照片">
+                            <img src="blue.jpg" alt="个人照片">
+                            <!-- 克隆第一张图片实现无缝循环 -->
+                            <img src="yan.jpg" alt="个人照片" class="clone">
+                        </div>
+                    </div>
+                    <div class="carousel-indicators">
+                        <span class="active"></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="photo-upload">
+                        <input type="file" id="photo-upload" accept="image/*">
+                        <label for="photo-upload"><i class="fas fa-camera"></i> 上传照片</label>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <!-- 原有个人信息表单项保持不变 -->
+                    <div class="info-item">
+                        <div class="section-title"><i class="fas fa-user"></i> 姓名</div>
+                        <input type="text" name="name" value="赵亚男" required>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="section-title"><i class="fas fa-venus-mars"></i> 性别</div>
+                        <select name="gender" required>
+                            <option value="女" selected>女</option>
+                            <option value="男">男</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="section-title"><i class="fas fa-birthday-cake"></i> 年龄</div>
+                        <input type="number" name="age" value="20" required>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="section-title"><i class="fas fa-home"></i> 籍贯</div>
+                        <input type="text" name="hometown" value="枣庄" required>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="section-title"><i class="fas fa-phone"></i> 电话</div>
+                        <input type="tel" name="phone" value="13361422293" required>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="section-title"><i class="fas fa-envelope"></i> 邮箱</div>
+                        <input type="email" name="email" value="2993567509@qq.com" required>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="section-title"><i class="fas fa-graduation-cap"></i> 学历</div>
+                        <select name="education" required>
+                            <option value="本科" selected>本科</option>
+                            <option value="专科">专科</option>
+                            <option value="硕士">硕士</option>
+                            <option value="博士">博士</option>
+                        </select>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="section-title"><i class="fas fa-ring"></i> 婚姻状况</div>
+                        <select name="marital_status" required>
+                            <option value="未婚" selected>未婚</option>
+                            <option value="已婚">已婚</option>
+                            <option value="离异">离异</option>
+                        </select>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="section-title"><i class="fas fa-book"></i> 专业</div>
+                        <input type="text" name="major" value="软件工程" required>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="section-title"><i class="fas fa-university"></i> 毕业院校</div>
+                        <input type="text" name="school" value="烟台理工学院" required>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 求职意向区 -->
+            <div class="full-width-section">
+                <div class="section-title"><i class="fas fa-briefcase"></i> 求职意向</div>
+                <input type="text" name="job_intention" value="前端开发工程师" required>
+            </div>
+            
+            <!-- 技能证书区 -->
+            <div class="full-width-section">
+                <div class="section-title"><i class="fas fa-certificate"></i> 技能证书</div>
+                <div class="skills-list" id="certificates-container">
+                    <div class="skill-item">
+                        <input type="text" name="certificate[]" value="计算机办公应用助理工程师证书" required>
+                        <button type="button" class="remove-btn"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="skill-item">
+                        <input type="text" name="certificate[]" value="软件系统设计师" required>
+                        <button type="button" class="remove-btn"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" id="add-certificate"><i class="fas fa-plus"></i> 添加证书</button>
+            </div>
+            
+            <!-- 项目经历区 -->
+            <div class="full-width-section">
+                <div class="section-title"><i class="fas fa-project-diagram"></i> 项目经历</div>
+                <div class="projects-list" id="projects-container">
+                    <div class="project-item">
+                        <input type="text" name="project[]" value="大学生创新创业PPT制作" required>
+                        <button type="button" class="remove-btn"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" id="add-project"><i class="fas fa-plus"></i> 添加项目</button>
+            </div>
+            
+            <!-- 个人特长区 -->
+            <div class="full-width-section">
+                <div class="section-title"><i class="fas fa-star"></i> 个人特长</div>
+                <div class="skills-list" id="hobbies-container">
+                    <div class="skill-item">
+                        <input type="text" name="hobby[]" value="阅读" required>
+                        <button type="button" class="remove-btn"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="skill-item">
+                        <input type="text" name="hobby[]" value="健身" required>
+                        <button type="button" class="remove-btn"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="skill-item">
+                        <input type="text" name="hobby[]" value="烹饪" required>
+                        <button type="button" class="remove-btn"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+                <button type="button" class="add-btn" id="add-hobby"><i class="fas fa-plus"></i> 添加特长</button>
+            </div>
+            
+            <!-- 自我评价区 -->
+            <div class="full-width-section">
+                <div class="section-title"><i class="fas fa-comment"></i> 自我评价</div>
+                <textarea name="self_evaluation" required>我是一个积极向上、乐于学习的人。在过去的几年里，我积累了丰富的项目管理和跨部门协作经验，熟练掌握了多种编程语言和技术栈。
+
+我热衷于学习新技术，能够快速适应变化并解决复杂问题。我注重细节，追求卓越，始终致力于提高工作效率和产品质量。
+
+我擅长团队合作，能够有效地与他人沟通和协作。我相信自己能够为贵公司带来积极的影响，并与团队共同实现公司的目标。
+
+我期待有机会在贵公司进一步发展我的职业生涯，并为公司的成功贡献我的力量。</textarea>
+            </div>
+            
+            <!-- 表单操作按钮 -->
+            <div class="form-actions">
+                <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> 提交简历</button>
+                <button type="reset" class="reset-btn"><i class="fas fa-redo"></i> 重置表单</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        // 无缝图片轮播功能
+        function initCarousel() {
+            const track = document.querySelector('.carousel-track');
+            const images = track.querySelectorAll('img:not(.clone)');
+            const indicators = document.querySelectorAll('.carousel-indicators span');
+            let currentIndex = 0;
+            const imageCount = images.length;
+            let interval;
+            
+            // 设置初始位置
+            track.style.transform = 'translateX(0)';
+            
+            function showImage(index) {
+                // 计算位移
+                const offset = -index * 100;
+                track.style.transform = `translateX(${offset}%)`;
+                
+                // 更新指示器
+                indicators.forEach(ind => ind.classList.remove('active'));
+                indicators[index % imageCount].classList.add('active');
+                
+                currentIndex = index;
+                
+                // 如果到了克隆的第一张图片，立即无动画跳转到真实的第一张
+                if (index === imageCount) {
+                    setTimeout(() => {
+                        track.style.transition = 'none';
+                        track.style.transform = 'translateX(0)';
+                        // 强制重绘
+                        void track.offsetWidth;
+                        track.style.transition = 'transform 0.5s ease-in-out';
+                        currentIndex = 0;
+                    }, 500);
+                }
+            }
+            
+            function nextImage() {
+                showImage(currentIndex + 1);
+            }
+            
+            // 启动轮播
+            function startCarousel() {
+                interval = setInterval(nextImage, 2000);
+            }
+            
+            // 停止轮播
+            function stopCarousel() {
+                clearInterval(interval);
+            }
+            
+            // 初始化轮播
+            startCarousel();
+            
+            // 鼠标悬停时暂停轮播
+            const carousel = document.querySelector('.photo-carousel');
+            carousel.addEventListener('mouseenter', stopCarousel);
+            
+            // 鼠标离开时恢复轮播
+            carousel.addEventListener('mouseleave', startCarousel);
+            
+            // 点击指示器切换图片
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    stopCarousel();
+                    showImage(index);
+                    startCarousel();
+                });
+            });
+        }
+        
+        // 动态添加和删除列表项的功能
+        function setupDynamicLists() {
+            // 添加证书
+            document.getElementById('add-certificate').addEventListener('click', function() {
+                const container = document.getElementById('certificates-container');
+                const newItem = document.createElement('div');
+                newItem.className = 'skill-item';
+                newItem.innerHTML = `
+                    <input type="text" name="certificate[]" placeholder="输入证书名称" required>
+                    <button type="button" class="remove-btn"><i class="fas fa-times"></i></button>
+                `;
+                container.appendChild(newItem);
+                setupRemoveButtons(newItem.querySelector('.remove-btn'));
+            });
+            
+            // 添加项目
+            document.getElementById('add-project').addEventListener('click', function() {
+                const container = document.getElementById('projects-container');
+                const newItem = document.createElement('div');
+                newItem.className = 'project-item';
+                newItem.innerHTML = `
+                    <input type="text" name="project[]" placeholder="输入项目名称" required>
+                    <button type="button" class="remove-btn"><i class="fas fa-times"></i></button>
+                `;
+                container.appendChild(newItem);
+                setupRemoveButtons(newItem.querySelector('.remove-btn'));
+            });
+            
+            // 添加特长
+            document.getElementById('add-hobby').addEventListener('click', function() {
+                const container = document.getElementById('hobbies-container');
+                const newItem = document.createElement('div');
+                newItem.className = 'skill-item';
+                newItem.innerHTML = `
+                    <input type="text" name="hobby[]" placeholder="输入特长" required>
+                    <button type="button" class="remove-btn"><i class="fas fa-times"></i></button>
+                `;
+                container.appendChild(newItem);
+                setupRemoveButtons(newItem.querySelector('.remove-btn'));
+            });
+            
+            // 设置删除按钮功能
+            function setupRemoveButtons(button) {
+                button.addEventListener('click', function() {
+                    this.parentElement.remove();
+                });
+            }
+            
+            // 初始化现有的删除按钮
+            document.querySelectorAll('.remove-btn').forEach(btn => {
+                setupRemoveButtons(btn);
+            });
+        }
+        
+        // 照片上传功能
+        function setupPhotoUpload() {
+            const uploadInput = document.getElementById('photo-upload');
+            const carouselTrack = document.querySelector('.carousel-track');
+            
+            uploadInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        // 创建新图片元素
+                        const newImg = document.createElement('img');
+                        newImg.src = event.target.result;
+                        newImg.alt = '上传的照片';
+                        
+                        // 添加到轮播中（在克隆图片之前）
+                        const cloneImg = document.querySelector('.carousel-track .clone');
+                        carouselTrack.insertBefore(newImg, cloneImg);
+                        
+                        // 更新轮播指示器
+                        const indicatorsContainer = document.querySelector('.carousel-indicators');
+                        const newIndicator = document.createElement('span');
+                        indicatorsContainer.insertBefore(newIndicator, indicatorsContainer.lastElementChild);
+                        
+                        // 重新初始化轮播以反映新图片
+                        initCarousel();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+        
+        // 表单提交处理
+        function setupFormSubmit() {
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('简历提交成功！');
+                // 这里可以添加实际的表单提交逻辑
+            });
+        }
+        
+        // 页面加载完成后初始化所有功能
+        document.addEventListener('DOMContentLoaded', function() {
+            initCarousel();
+            setupDynamicLists();
+            setupPhotoUpload();
+            setupFormSubmit();
+        });
+    </script>
+</body>
+</html>

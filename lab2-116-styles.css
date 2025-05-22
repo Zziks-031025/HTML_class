@@ -1,0 +1,72 @@
+/* 页面背景颜色和默认字体 */
+body {
+    background-color: #ffffff;
+    font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+/*容器的样式*/
+.container{
+	width: 220px;
+	height: 220px;
+	margin-left: 50px;
+	background-color: #5555ff;
+	border: 1px solid #ccc;
+	padding: 10px;
+	box-sizing: border-box;
+}
+.container{
+	width: 100%;
+	height: auto;
+}
+
+/* 标题样式 */
+h1 {
+    color: blue;
+    font-size: 16px;
+    font-family: '宋体', bold;
+    text-align: center;
+}
+
+h2 {
+	color: #2c2c2c;
+	font-size: 16px;
+	font-family: '宋体', bold;
+	text-align: center;
+}
+
+h3 {
+    color: #555;
+    font-size: 2em;
+    font-family: Arial, sans-serif;
+    text-decoration: underline;
+}
+
+/*水平线样式*/
+hr{
+	border: none;
+	border-top: 1px solid #333;
+	margin: 20px 0;
+}
+
+/* 段落样式 */
+p {
+    color: #45ff8f;
+    font-size: 1.2em;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    text-align: justify;
+}
+img{
+	width:50px;
+	height:50px;
+	broder:1px solid black;
+}
+ul{
+	list-style-type: none;
+	padding: 0;
+}
+li{
+	margin: 5px 0;
+}

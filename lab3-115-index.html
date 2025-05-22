@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>个人简历</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" >
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+        }
+    
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+    
+        table {
+            width: 100%;
+            max-width: 1000px;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+    
+        table:hover {
+            transform: translateY(-5px);
+        }
+    
+        caption {
+            font-size: 2em;
+            color: var(--primary-color);
+            padding: 20px;
+            background: linear-gradient(45deg, var(--secondary-color), #55aaff);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+    
+        th {
+			width: 100px;
+			height: 60px;
+            background: var(--primary-color);
+            color: white;
+            padding: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            transition: background 0.3s ease;
+        }
+    
+        th:hover {
+            background: var(--secondary-color);
+        }
+    
+        td {
+            padding: 15px;
+            color: var(--text-color);
+            border-bottom: 1px solid #c4fffb;
+            transition: background 0.3s ease;
+        }
+    
+        tr:hover td {
+            background: #c4fffb;
+        }
+    
+        tr:nth-child(even) {
+            background-color: #c4fffb;
+        }
+    
+        .fas {
+            margin-right: 8px;
+            color: var(--secondary-color);
+        }
+    
+        img {
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+    
+        img:hover {
+            transform: scale(1.05);
+        }
+    
+        td[colspan="6"] {
+            line-height: 1.6;
+            padding: 20px;
+        }
+    
+        /* 特殊样式 */
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+    
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            table {
+                width: 95%;
+            }
+            
+            caption {
+                font-size: 1.5em;
+            }
+            
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <caption>个人简历</caption>
+        <tr>
+            <th>姓名</th>
+            <td>周蒴</td>
+            <th>性别</th>
+            <td>男</td>
+            <th>年龄</th>
+            <td>20</td>
+            <td colspan="2" rowspan="3" width="136"><img src="lab3-zs.jpg" alt="个人照片" style="width: 120px; height: 180px;"></td>
+        </tr>
+
+        <tr>
+            <th><i class="fas fa-home icon"></i>籍贯</th>
+            <td>山东枣庄</td>
+            <th><i class="fas fa-phone icon"></i>联系电话</th>
+            <td>17606291120</td>
+            <th><i class="fas fa-envelope icon"></i>电子邮箱</th>
+            <td>3289790478@qq.com</td>
+        </tr>
+
+        <tr>
+            <th><i class="fas fa-graduation-cap icon"></i>学历</th>
+            <td>本科</td>
+            <th><i class="fas fa-heartbeat icon"></i>健康状况</th>
+            <td>良好</td>
+            <th><i class="fas fa-ring icon"></i>婚姻状况</th>
+            <td>未婚</td>
+        </tr>
+		
+        <tr>
+            <th><i class="fas fa-briefcase icon"></i>求职意向</th>
+            <td>前端开发工程师</td>
+            <th><i class="fas fa-book icon"></i>专业</th>
+            <td colspan="2">软件工程</td>
+            <th><i class="fas fa-university icon"></i>毕业院校</th>
+            <td colspan="2">烟台理工学院</td>
+        </tr>
+
+        <tr>
+            <th>技能证书</th>
+            <td colspan="6">
+                <br><br>
+            </td>
+        </tr>
+        <tr>
+            <th>个人特长与爱好</th>
+            <td colspan="6">
+                听歌<br>游泳<br>书法<br>太极<br>劲扇
+            </td>
+        </tr>
+        <tr>
+            <th>项目经历</th>
+            <td colspan="6">
+                个人博客网站开发<br>数据分析与可视化项目<br><br><br>
+            </td>
+        </tr>
+        <tr>
+            <th>自我评价</th>
+            <td colspan="6" style="text-align: left;">
+                我是一位活泼开朗的男生，性格外向且富有好奇心，喜欢与人交流并探索新事物。<br>
+                作为一个天蝎座，我性格中带有一些神秘感和强烈的目标感，做事专注且富有毅力，一旦确定目标就会全力以赴。<br>
+                我目前对计算机技术和编程非常感兴趣，尤其是前端开发和网页设计。<br>
+				我熟练掌握HTML、CSS和JavaScript，能够独立完成简单的网页开发项目。此外，我对数据分析也有一定的了解，能够使用Python进行基础的数据处理和可视化。
+                
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

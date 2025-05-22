@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>七彩霓虹灯</title>
+    <link rel="stylesheet" href="lab9-136-styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">七彩霓虹灯</h1>
+        <p class="subtitle">点击下方按钮控制霓虹灯</p>
+       
+        <div class="lamp-container" id="lampContainer"></div>
+       
+        <div class="controls">
+            <button id="startBtn" class="btn start-btn">
+                <span class="icon">▶</span>
+                <span>启动</span>
+            </button>
+            <button id="stopBtn" class="btn stop-btn">
+                <span class="icon">⏹</span>
+                <span>停止</span>
+            </button>
+        </div>
+    </div>
+ 
+    <script>
+        const colors = [
+            '#ff4d4d',
+            '#ff9966', 
+            '#ffff66', 
+            '#66ff66', 
+            '#6666ff', 
+            '#9966ff', 
+            '#ff66ff' 
+        ];
+       
+        const lampContainer = document.getElementById('lampContainer');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        let animationInterval;
+        let lamps = [];
+       
+        function createDecorators() {
+            const decorator1 = document.createElement('div');
+            decorator1.className = 'decorator decorator-1';
+            document.body.appendChild(decorator1);
+           
+            const decorator2 = document.createElement('div');
+            decorator2.className = 'decorator decorator-2';
+            document.body.appendChild(decorator2);
+        }
+       
+        function createLamps() {
+            const radius = 200;
+            const centerX = 250;
+            const centerY = 250;
+           
+            for (let i = 0; i < 7; i++) {
+                const lamp = document.createElement('div');
+                lamp.className = 'lamp';
+               
+                const angle = (i * (2 * Math.PI / 7)) - Math.PI/2;
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
+               
+                lamp.style.left = `${x}px`;
+                lamp.style.top = `${y}px`;
+                lamp.style.backgroundColor = colors[i];
+                lamp.style.boxShadow = `0 0 30px ${colors[i]}`;
+               
+                lampContainer.appendChild(lamp);
+                lamps.push(lamp);
+            }
+        }
+       
+        function animateLamps() {
+            let currentIndex = 0;
+           
+            animationInterval = setInterval(() => {
+                lamps.forEach((lamp, i) => {
+                    const colorIndex = (currentIndex + i) % 7;
+                    lamp.style.backgroundColor = colors[colorIndex];
+                    lamp.style.boxShadow = `0 0 40px 15px ${colors[colorIndex]}`;
+                });
+               
+                currentIndex = (currentIndex + 1) % 7;
+            }, 600);
+        }
+       
+        function init() {
+            createDecorators();
+            createLamps();
+           
+            startBtn.addEventListener('click', () => {
+                if (!animationInterval) {
+                    animateLamps();
+                    startBtn.disabled = true;
+                    stopBtn.disabled = false;
+                }
+            });
+           
+            stopBtn.addEventListener('click', () => {
+                clearInterval(animationInterval);
+                animationInterval = null;
+               
+                lamps.forEach((lamp, i) => {
+                    lamp.style.backgroundColor = colors[i];
+                    lamp.style.boxShadow = `0 0 30px ${colors[i]}`;
+                });
+               
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+            });
+           
+            stopBtn.disabled = true;
+        }
+       
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

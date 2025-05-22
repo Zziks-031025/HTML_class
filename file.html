@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旋转幽美烟台理工校园</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #aeddf6, #beb4c7);
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+        .scene{
+			width: 300px;
+			display: flex;
+			transform-style: preserve-3d;
+			transform:rotateX(-25deg);
+		}
+        .container {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            transform-style: preserve-3d;
+            transition: transform 1s ease;
+        }
+        
+        .container:hover {
+            transform: rotateY(360deg);
+        }
+        
+        .photo {
+            position: absolute;
+            width: 200px;
+            height: 300px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+            object-fit: cover;
+        }
+        
+        .photo:nth-child(1) {
+            transform: rotateY(0deg) translateZ(300px);
+        }
+        
+        .photo:nth-child(2) {
+            transform: rotateY(90deg) translateZ(300px);
+        }
+        
+        .photo:nth-child(3) {
+            transform: rotateY(180deg) translateZ(300px);
+        }
+        
+        .photo:nth-child(4) {
+            transform: rotateY(270deg) translateZ(300px);
+        }
+         .watermark {
+                    position: absolute;
+                    bottom: 20px;
+                    color: rgba(255, 255, 255, 0.7);
+                    font-size: 0.9rem;
+                    text-align: center;
+                    width: 100%;
+                }
+        h1 {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <h1>烟台理工校园-校园3D图片墙</h1>
+	<div class="scene">
+		<div class="container">
+			<img src="lab8-116-1.jpg" class="photo" alt="校园图片1">
+			<img src="lab8-116-2.jpg" class="photo" alt="校园图片2">
+			<img src="lab8-116-3.jpg" class="photo" alt="校园图片3">
+			<img src="lab8-116-4.jpg" class="photo" alt="校园图片4">
+		</div>
+	</div>
+	
+    <div class="watermark">烟台理工学院 © 2025</div>
+	
+</body>
+</html>

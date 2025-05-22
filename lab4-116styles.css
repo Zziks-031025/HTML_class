@@ -1,0 +1,52 @@
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	background-color: #f0f0f0;
+}
+
+.bk-img {
+	position: relative;
+	width: 40%;
+	height: 25%;
+	left: 30%;
+	object-fit: cover;
+	z-index: 3; /* 确保在最前面 */
+	
+}
+
+.box{
+	position: absolute;
+	width: 300px;
+	background: rgba(255, 255, 255, 0.9);
+	padding: 20px;
+	z-index: 2;
+	transition: all 0.3s ease;
+}
+
+.box-point:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.box1-print { top: 20%; left: 35%;}
+.box2-point { bottom: 20%; left: 25%; }
+.box3-point { bottom: 25%; right: 25%; }
+
+.point-title {
+    color: #2c3e50;
+    border-left: 4px solid #3498db;
+    padding-left: 10px;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.center-icon {
+	font-size: 48px;
+	color: #333;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}

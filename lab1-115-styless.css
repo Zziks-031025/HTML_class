@@ -1,0 +1,40 @@
+/* 页面背景颜色和默认字体 */
+body {
+    background-color: pink;
+    font-family: Arial, sans-serif;
+}
+
+/* 标题样式 */
+h1 {
+    color: blue;
+    font-size: 16px;
+    font-family: '宋体', bold;
+    text-align: center;
+}
+
+h2 {
+    color: #555;
+    font-size: 2em;
+    font-family: Arial, sans-serif;
+	text-align: center;
+    text-decoration: underline;
+}
+
+li {
+	color: #ff0000;
+	font-size: 2em;
+	font-family: Arial, sans-serif;
+	text-align: center;
+	text-decoration: underline;
+}
+
+/* 段落样式 */
+p {
+    color: #666;
+    font-size: 1.2em;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+/* 超链接样式 */

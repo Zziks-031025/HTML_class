@@ -1,0 +1,299 @@
+/* Lab6-2.css */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --text-color: #333;
+    --light-bg: #f5f7fa;
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.resume-container {
+    width: 100%;
+    max-width: 1000px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    transition: var(--transition);
+    position: relative;
+}
+
+.resume-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.resume-header {
+    background: linear-gradient(45deg, var(--secondary-color), #55aaff);
+    color: white;
+    padding: 25px;
+    text-align: center;
+    border-radius: 15px 15px 0 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.resume-header h1 {
+    font-size: 2.2em;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 2;
+    animation: fadeInDown 0.8s ease;
+}
+
+.resume-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+    transform: rotate(30deg);
+    z-index: 1;
+}
+
+.resume-content {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.section-group {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 15px;
+    gap: 20px;
+}
+
+/* 照片区域样式 */
+.photo-section {
+    flex: 0 0 150px;
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    position: relative;
+    align-self: flex-start;
+}
+
+.photo-section:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.photo-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.photo-section:hover img {
+    transform: scale(1.1);
+}
+
+/* 个人信息块样式 */
+.info-section {
+    flex: 1;
+    min-width: 300px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    background: rgba(196, 255, 251, 0.3);
+    border-radius: 10px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.info-section:hover {
+    background: rgba(196, 255, 251, 0.6);
+    transform: translateY(-3px);
+}
+
+.info-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--secondary-color);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.info-section:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    min-height: 60px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.info-item:hover {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.section-title i {
+    margin-right: 10px;
+    color: var(--secondary-color);
+    transition: var(--transition);
+}
+
+.info-item:hover .section-title i {
+    transform: rotate(15deg) scale(1.1);
+    color: var(--accent-color);
+}
+
+.section-content {
+    font-size: 1.1em;
+    padding-left: 25px;
+}
+
+/* 其他部分样式 */
+.full-width-section {
+    width: calc(100% - 20px);
+    margin: 10px;
+    padding: 20px;
+    background: rgba(196, 255, 251, 0.3);
+    border-radius: 10px;
+    transition: var(--transition);
+}
+
+.full-width-section:hover {
+    background: rgba(196, 255, 251, 0.6);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.full-width-section .section-content {
+    padding-left: 0;
+}
+
+.skills-list, .projects-list {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.skills-list li, .projects-list li {
+    position: relative;
+    padding: 12px 15px 12px 40px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.skills-list li:hover, .projects-list li:hover {
+    background: white;
+    transform: translateX(5px);
+}
+
+.skills-list li::before, .projects-list li::before {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 15px;
+    color: var(--secondary-color);
+    transition: var(--transition);
+}
+
+.projects-list li::before {
+    content: '\f542';
+}
+
+.skills-list li:hover::before, .projects-list li:hover::before {
+    color: var(--accent-color);
+    transform: scale(1.3);
+}
+
+.highlight {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+@media (max-width: 768px) {
+    .resume-header h1 {
+        font-size: 1.8em;
+    }
+
+    .info-section {
+        grid-template-columns: 1fr;
+    }
+
+    .photo-section {
+        margin: 0 auto 20px;
+    }
+}

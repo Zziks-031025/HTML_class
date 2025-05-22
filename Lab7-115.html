@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人简历</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link type="text/css" rel="stylesheet" href="zs-Lab7.css">
+</head>
+<body>
+    <form class="resume-container">
+        <div class="resume-header">
+            <h1>个人简历 <i class="fas fa-file-alt pulse"></i></h1>
+        </div>
+
+        <div class="resume-content">
+            <div class="section-group">
+                <div class="photo-section">
+                    <div class="photo-carousel">
+                        <img src="blue.jpg" alt="个人照片1" class="active">
+                        <img src="lab3-zs.jpg" alt="个人照片2">
+                        <img src="white.jpg" alt="个人照片3">
+                        <div class="carousel-indicators">
+                            <span class="active"></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="photo-upload">
+                        <input type="file" id="photo-upload" accept="image/*" multiple>
+                        <label for="photo-upload"><i class="fas fa-camera"></i> 上传照片</label>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-item">
+                        <label class="section-title"><i class="fas fa-user"></i>姓名</label>
+                        <input type="text" class="section-content" value="周蒴">
+                    </div>
+                    
+                    <div class="info-item">
+                        <label class="section-title"><i class="fas fa-venus-mars"></i>性别</label>
+                        <select class="section-content">
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                    
+                    <div class="info-item">
+                        <label class="section-title"><i class="fas fa-birthday-cake"></i>年龄</label>
+                        <input type="number" class="section-content" value="20" min="1" max="100">
+                    </div>
+                    
+                    <div class="info-item">
+                        <label class="section-title"><i class="fas fa-home"></i>籍贯</label>
+                        <input type="text" class="section-content" value="山东枣庄">
+                    </div>
+                    
+                    <div class="info-item">
+                        <label class="section-title"><i class="fas fa-phone"></i>联系电话</label>
+                        <input type="tel" class="section-content" value="17606291120">
+                    </div>
+                    
+                    <div class="info-item">
+                        <label class="section-title"><i class="fas fa-envelope"></i>电子邮箱</label>
+                        <input type="email" class="section-content" value="3289790478@qq.com">
+                    </div>
+                    
+                    <div class="info-item">
+                        <label class="section-title"><i class="fas fa-graduation-cap"></i>学历</label>
+                        <select class="section-content">
+                            <option value="本科">本科</option>
+                            <option value="大专">大专</option>
+                            <option value="硕士">硕士</option>
+                            <option value="博士">博士</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                    
+                    <div class="info-item">
+                        <label class="section-title"><i class="fas fa-heartbeat"></i>健康状况</label>
+                        <select class="section-content">
+                            <option value="良好">良好</option>
+                            <option value="一般">一般</option>
+                            <option value="有慢性病">有慢性病</option>
+                        </select>
+                    </div>
+                    
+                    <div class="info-item">
+                        <label class="section-title"><i class="fas fa-ring"></i>婚姻状况</label>
+                        <select class="section-content">
+                            <option value="未婚" selected>未婚</option>
+                            <option value="已婚">已婚</option>
+                            <option value="离异">离异</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-group">
+                <div class="info-section">
+                    <div class="info-item">
+                        <label class="section-title"><i class="fas fa-briefcase"></i>求职意向</label>
+                        <input type="text" class="section-content" value="前端开发工程师">
+                    </div>
+                    
+                    <div class="info-item">
+                        <label class="section-title"><i class="fas fa-book"></i>专业</label>
+                        <input type="text" class="section-content" value="软件工程">
+                    </div>
+                    
+                    <div class="info-item">
+                        <label class="section-title"><i class="fas fa-university"></i>毕业院校</label>
+                        <input type="text" class="section-content" value="烟台理工学院">
+                    </div>
+                </div>
+            </div>
+
+            <div class="full-width-section">
+                <div class="section-title"><i class="fas fa-certificate"></i>技能证书</div>
+                <div class="section-content">
+                    <ul class="skills-list" id="skills-list">
+                        <li>
+                            <input type="text" value="HTML/CSS/JavaScript 熟练">
+                            <button class="remove-btn"><i class="fas fa-times"></i></button>
+                        </li>
+                        <li>
+                            <input type="text" value="Python 基础">
+                            <button class="remove-btn"><i class="fas fa-times"></i></button>
+                        </li>
+                        <li>
+                            <input type="text" value="前端框架基础">
+                            <button class="remove-btn"><i class="fas fa-times"></i></button>
+                        </li>
+                    </ul>
+                    <button class="add-btn" id="add-skill"><i class="fas fa-plus"></i> 添加技能</button>
+                </div>
+            </div>
+
+            <div class="full-width-section">
+                <div class="section-title"><i class="fas fa-project-diagram"></i>项目经历</div>
+                <div class="section-content">
+                    <ul class="projects-list" id="projects-list">
+                        <li>
+                            <input type="text" value="个人博客网站开发">
+                            <button class="remove-btn"><i class="fas fa-times"></i></button>
+                        </li>
+                        <li>
+                            <input type="text" value="数据分析与可视化项目">
+                            <button class="remove-btn"><i class="fas fa-times"></i></button>
+                        </li>
+                    </ul>
+                    <button class="add-btn" id="add-project"><i class="fas fa-plus"></i> 添加项目</button>
+                </div>
+            </div>
+
+            <div class="full-width-section">
+                <div class="section-title"><i class="fas fa-user-edit"></i>自我评价</div>
+                <div class="section-content">
+                    <textarea class="self-evaluation">我是一位活泼开朗的男生，性格外向且富有好奇心，喜欢与人交流并探索新事物。
+
+作为一个天蝎座，我性格中带有一些神秘感和强烈的目标感，做事专注且富有毅力，一旦确定目标就会全力以赴。
+
+我目前对计算机技术和编程非常感兴趣，尤其是前端开发和网页设计。
+
+我熟练掌握HTML、CSS和JavaScript，能够独立完成简单的网页开发项目。此外，我对数据分析也有一定的了解，能够使用Python进行基础的数据处理和可视化。</textarea>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="submit-btn"><i class="fas fa-save"></i> 保存简历</button>
+                <button type="reset" class="reset-btn"><i class="fas fa-undo"></i> 重置表单</button>
+            </div>
+        </div>
+    </form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const carousel = document.querySelector('.photo-carousel');
+        const images = carousel.querySelectorAll('img');
+        const indicators = carousel.querySelectorAll('.carousel-indicators span');
+        let currentIndex = 0;
+        const totalImages = images.length;
+        let interval;
+
+        function showImage(index) {
+            // 标记当前图片为离开状态
+            const currentActive = carousel.querySelector('img.active');
+            if (currentActive) {
+                currentActive.classList.remove('active');
+                currentActive.classList.add('leaving');
+                
+                // 移除离开动画类
+                setTimeout(() => {
+                    currentActive.classList.remove('leaving');
+                }, 1000);
+            }
+
+            // 更新指示器
+            indicators.forEach(ind => ind.classList.remove('active'));
+            indicators[index].classList.add('active');
+
+            // 设置新图片为活动状态
+            images[index].classList.add('active');
+            currentIndex = index;
+        }
+
+        function nextImage() {
+            const nextIndex = (currentIndex + 1) % totalImages;
+            showImage(nextIndex);
+        }
+
+        // 初始化
+        showImage(currentIndex);
+        
+        // 自动轮播，间隔2秒
+        function startCarousel() {
+            interval = setInterval(nextImage, 4000);
+        }
+        startCarousel();
+        
+        // 鼠标悬停暂停轮播
+        carousel.addEventListener('mouseenter', () => clearInterval(interval));
+        carousel.addEventListener('mouseleave', startCarousel);
+        
+        // 点击指示器切换图片
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                clearInterval(interval);
+                showImage(index);
+                interval = setInterval(nextImage, 2000);
+            });
+        });
+		
+// 添加技能和项目的功能
+            document.getElementById('add-skill').addEventListener('click', function(e) {
+                e.preventDefault();
+                const list = document.getElementById('skills-list');
+                const newItem = document.createElement('li');
+                newItem.innerHTML = `
+                    <input type="text" placeholder="输入新技能">
+                    <button class="remove-btn"><i class="fas fa-times"></i></button>
+                `;
+                list.appendChild(newItem);
+            });
+
+            document.getElementById('add-project').addEventListener('click', function(e) {
+                e.preventDefault();
+                const list = document.getElementById('projects-list');
+                const newItem = document.createElement('li');
+                newItem.innerHTML = `
+                    <input type="text" placeholder="输入新项目">
+                    <button class="remove-btn"><i class="fas fa-times"></i></button>
+                `;
+                list.appendChild(newItem);
+            });
+
+            // 删除项目功能
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.remove-btn')) {
+                    e.preventDefault();
+                    e.target.closest('li').remove();
+                }
+            });
+
+            // 照片上传功能
+            document.getElementById('photo-upload').addEventListener('change', function(e) {
+                const files = e.target.files;
+                const carousel = document.querySelector('.photo-carousel');
+                const indicators = document.querySelector('.carousel-indicators');
+                
+                // 清空现有图片和指示器
+                carousel.querySelectorAll('img').forEach(img => img.remove());
+                indicators.innerHTML = '';
+                
+                // 添加新图片
+                Array.from(files).forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const img = document.createElement('img');
+                        img.src = event.target.result;
+                        img.alt = "上传的照片" + (index + 1);
+                        if (index === 0) img.classList.add('active');
+                        carousel.insertBefore(img, indicators);
+                        
+                        // 添加指示器
+                        const span = document.createElement('span');
+                        if (index === 0) span.classList.add('active');
+                        indicators.appendChild(span);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            });
+    });
+</script>
+	
+</body>
+</html>

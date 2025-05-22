@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>七彩霓虹灯</title>
+    <link rel="stylesheet" href="lab9-115-zs.css">
+    
+</head>
+<body>
+    <h1 class="title">七彩霓虹灯效果</h1>
+    
+    <div class="control-panel">
+        <button id="startBtn">启动</button>
+        <button id="stopBtn">停止</button>
+    </div>
+    
+    <div class="lamp-container">
+        <div class="lamp" id="lamp1"></div>
+        <div class="lamp" id="lamp2"></div>
+        <div class="lamp" id="lamp3"></div>
+        <div class="lamp" id="lamp4"></div>
+        <div class="lamp" id="lamp5"></div>
+        <div class="lamp" id="lamp6"></div>
+        <div class="lamp" id="lamp7"></div>
+    </div>
+    
+    <script>
+        const colors = [
+            '#FF0000', // 红
+            '#FF7F00', // 橙
+            '#FFFF00', // 黄
+            '#00FF00', // 绿
+            '#0000FF', // 蓝
+            '#4B0082', // 靛
+            '#9400D3'  // 紫
+        ];
+        
+        let timer;
+        let isRunning = false;
+        const lamps = [
+            document.getElementById('lamp1'),
+            document.getElementById('lamp2'),
+            document.getElementById('lamp3'),
+            document.getElementById('lamp4'),
+            document.getElementById('lamp5'),
+            document.getElementById('lamp6'),
+            document.getElementById('lamp7')
+        ];
+        
+        function getRandomColor(currentColor) {
+            let availableColors = colors.filter(color => color !== currentColor);
+            return availableColors[Math.floor(Math.random() * availableColors.length)];
+        }
+        
+        function changeColors() {
+            lamps.forEach((lamp, index) => {
+                // 确保每个灯的颜色与其他灯不同
+                let newColor;
+                do {
+                    newColor = getRandomColor(lamp.style.color);
+                } while (
+                    Array.from(lamps).some((l, i) => 
+                        i !== index && l.style.color === newColor
+                    )
+                );
+                
+                lamp.style.color = newColor;
+            });
+        }
+        
+        function startAnimation() {
+            if (!isRunning) {
+                isRunning = true;
+                // 初始设置颜色
+                changeColors();
+                // 定时器
+                timer = setInterval(changeColors, 500);
+            }
+        }
+        
+        function stopAnimation() {
+            if (isRunning) {
+                isRunning = false;
+                clearInterval(timer);
+                // 关闭所有灯
+                lamps.forEach(lamp => {
+                    lamp.style.color = 'transparent';
+                });
+            }
+        }
+        
+        document.getElementById('startBtn').addEventListener('click', startAnimation);
+        document.getElementById('stopBtn').addEventListener('click', stopAnimation);
+    </script>
+</body>
+</html>
