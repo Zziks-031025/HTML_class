@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>七彩霓虹灯</title>
+	<link type="text/css" rel="stylesheet" href="lab9-118.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<div class="control-panel">
+		<button id="startBtn">启动</button>
+		<button id="stopBtn" class="stop-btn">停止</button>
+	</div>
+	<div class="lamp-container" id="lampContainer"></div>
+	<script>
+		const colors = ['color-1', 'color-2', 'color-3', 'color-4', 'color-5', 'color-6', 'color-7'];
+		let animationInterval;
+		let colorChangeInterval;
+		let isAnimating = false;
+		const lampContainer = document.getElementById('lampContainer');
+		for (let i = 0; i < 7; i++)
+		{
+			const lamp = document.createElement('div');
+			lamp.className = `lamp ${colors[i]}`;
+			lamp.dataset.colorIndex = i;
+			lampContainer.appendChild(lamp);
+		}
+		const lamps = document.querySelectorAll('.lamp');
+		function startAnimation()
+		{
+			if (isAnimating) return;
+			isAnimating = true;
+			shuffleColors();
+			animationInterval = setInterval(flickerLamps, 800);
+			colorChangeInterval = setInterval(shuffleColors, 2000);
+		}
+		function stopAnimation()
+		{
+			isAnimating = false;
+			clearInterval(animationInterval);
+			clearInterval(colorChangeInterval);
+			lamps.forEach(lamp =>
+			{
+				lamp.classList.remove('flicker');
+				lamp.classList.remove('active');
+				lamp.style.transform = 'scale(1)';
+				lamp.style.opacity = '0.7';
+			});
+		}
+		function shuffleColors()
+		{
+			const shuffledColors = [...colors].sort(() => Math.random() - 0.5);
+			lamps.forEach((lamp, index) =>
+			{
+				colors.forEach(color => lamp.classList.remove(color));
+				lamp.classList.add(shuffledColors[index]);
+			});
+		}
+		function flickerLamps()
+		{
+			lamps.forEach(lamp =>
+			{
+				lamp.classList.add('flicker', 'active');
+				setTimeout(() =>
+				{
+					lamp.classList.remove('active');
+	                }, 800);
+			});
+		}
+		document.getElementById('startBtn').addEventListener('click', startAnimation);
+		document.getElementById('stopBtn').addEventListener('click', stopAnimation);
+	</script>
+</body>
+</html>
