@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日出东方动画</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="sunriseCanvas"></canvas>
+    <div class="info">日出东方动画 - 点击画面可重新开始</div>
+ 
+    <script>
+        const canvas = document.getElementById('sunriseCanvas');
+        const ctx = canvas.getContext('2d');
+        let sunY = 0;
+        let sunRadius = 0;
+        let isRising = true;
+        let animationFrameId = null;
+        let lastTimestamp = 0;
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            sunRadius = Math.min(canvas.width, canvas.height) * 0.08;
+        }
+        function resetAnimation() {
+            sunY = canvas.height * 0.9;
+            isRising = true;
+        }
+        function drawSky() {
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            if (sunY < canvas.height * 0.3) {
+                gradient.addColorStop(0, '#87CEEB');
+                gradient.addColorStop(0.5, '#E0F7FA');
+                gradient.addColorStop(1, '#FFFFFF');
+            } else if (sunY < canvas.height * 0.6) {
+                gradient.addColorStop(0, '#FF4500');
+                gradient.addColorStop(0.3, '#FF8C00');
+                gradient.addColorStop(0.6, '#FFD700');
+                gradient.addColorStop(1, '#FFFFFF');
+            } else {
+                gradient.addColorStop(0, '#0a1a2a');
+                gradient.addColorStop(0.5, '#4B0082');
+                gradient.addColorStop(1, '#FF4500');
+            }
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        function drawOcean() {
+            ctx.fillStyle = '#00aaff';
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height * 0.7);
+            ctx.bezierCurveTo(
+                canvas.width * 0.3, canvas.height * 0.68,
+                canvas.width * 0.7, canvas.height * 0.72,
+                canvas.width, canvas.height * 0.7
+            );
+            ctx.lineTo(canvas.width, canvas.height);
+            ctx.lineTo(0, canvas.height);
+            ctx.closePath();
+            ctx.fill();
+        }
+        function drawSun() {
+            const glow = ctx.createRadialGradient(
+                canvas.width/2, sunY, 0,
+                canvas.width/2, sunY, sunRadius * 1.8
+            );
+            if (sunY < canvas.height * 0.4) {
+                glow.addColorStop(0, 'rgba(255, 255, 0, 0.8)');
+                glow.addColorStop(0.7, 'rgba(255, 165, 0, 0.4)');
+                glow.addColorStop(1, 'rgba(255, 165, 0, 0)');
+            } else {
+                glow.addColorStop(0, 'rgba(255, 69, 0, 0.8)');
+                glow.addColorStop(0.7, 'rgba(255, 140, 0, 0.4)');
+                glow.addColorStop(1, 'rgba(255, 140, 0, 0)');
+            }
+            ctx.fillStyle = glow;
+            ctx.beginPath();
+            ctx.arc(canvas.width/2, sunY, sunRadius * 2.5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(canvas.width/2, sunY, sunRadius, 0, Math.PI * 2);
+            ctx.fillStyle = sunY < canvas.height * 0.4 ? '#FFD700' : '#FF4500';
+            ctx.fill();
+        }
+        function animate(timestamp) {
+            if (!lastTimestamp) lastTimestamp = timestamp;
+            const deltaTime = timestamp - lastTimestamp;
+            lastTimestamp = timestamp;
+            if (isRising) {
+                sunY -= 0.8 * (deltaTime / 16);
+                if (sunY < sunRadius) {
+                    sunY = sunRadius;
+                    isRising = false;
+                }
+            }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawSky();
+            drawOcean();
+            drawSun();
+           
+            animationFrameId = requestAnimationFrame(animate);
+        }
+        resizeCanvas();
+        resetAnimation();
+        window.addEventListener('resize', resizeCanvas);
+        canvas.addEventListener('click', resetAnimation);
+        animationFrameId = requestAnimationFrame(animate);
+        window.addEventListener('beforeunload', function() {
+            cancelAnimationFrame(animationFrameId);
+        });
+    </script>
+</body>
+</html>

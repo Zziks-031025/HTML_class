@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日出动画</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .sky {
+            height: 50%;
+            background: linear-gradient(to bottom, #0a0a23, #1a1a50);
+            position: relative;
+            z-index: 1;
+            animation: sky-color 6s infinite ease-in-out;
+            animation-play-state: paused; /* 默认暂停动画 */
+        }
+
+        .sea {
+            height: 50%;
+            background: linear-gradient(to bottom, #003973, #002040);
+            position: relative;
+            z-index: 2;
+            animation: sea-color 6s infinite ease-in-out;
+            animation-play-state: paused; /* 默认暂停动画 */
+        }
+
+        .sun {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #ffd700, #ff8c00);
+            border-radius: 50%;
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 30px 10px rgba(255, 165, 0, 0.5);
+            animation: sunrise 6s infinite ease-in-out;
+            animation-play-state: paused; /* 默认暂停动画 */
+            z-index: 3;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: wave 3s infinite ease-in-out;
+            animation-play-state: paused; /* 默认暂停动画 */
+        }
+
+        .wave:nth-child(2) {
+            bottom: 10px;
+            animation-delay: 1s;
+            background: rgba(255, 255, 255, 0.05);
+            animation-play-state: paused; /* 默认暂停动画 */
+        }
+
+        @keyframes sunrise {
+            0% {
+                bottom: -50px;
+                opacity: 0;
+            }
+            15% {
+                opacity: 1;
+            }
+            85% {
+                opacity: 1;
+            }
+            100% {
+                bottom: calc(100% + 50px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes sky-color {
+            0% {
+                background: linear-gradient(to bottom, #0a0a23, #1a1a50);
+            }
+            10% {
+                background: linear-gradient(to bottom, #0a0a23, #1a1a50, #2a2a7a);
+            }
+            20% {
+                background: linear-gradient(to bottom, #1a1a50, #2a2a7a, #3a3a9a);
+            }
+            30% {
+                background: linear-gradient(to bottom, #2a2a7a, #3a3a9a, #4a4ab0);
+            }
+            40% {
+                background: linear-gradient(to bottom, #3a3a9a, #4a4ab0, #5a5ac0);
+            }
+            50% {
+                background: linear-gradient(to bottom, #4a4ab0, #5a5ac0, #6a6ad0);
+            }
+            60% {
+                background: linear-gradient(to bottom, #5a5ac0, #6a6ad0, #7a7ae0);
+            }
+            70% {
+                background: linear-gradient(to bottom, #6a6ad0, #7a7ae0, #8a8aff);
+            }
+            80% {
+                background: linear-gradient(to bottom, #7a7ae0, #8a8aff, #9a9aff);
+            }
+            90% {
+                background: linear-gradient(to bottom, #8a8aff, #9a9aff, #aaaaff);
+            }
+            100% {
+                background: linear-gradient(to bottom, #0a0a23, #1a1a50);
+            }
+        }
+
+        @keyframes sea-color {
+            0% {
+                background: linear-gradient(to bottom, #003973, #002040);
+            }
+            20% {
+                background: linear-gradient(to bottom, #003973, #002a55);
+            }
+            40% {
+                background: linear-gradient(to bottom, #004488, #003366);
+            }
+            60% {
+                background: linear-gradient(to bottom, #004d99, #003d7a);
+            }
+            80% {
+                background: linear-gradient(to bottom, #0059b3, #00478f);
+            }
+            100% {
+                background: linear-gradient(to bottom, #003973, #002040);
+            }
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                transform: translateY(0) scaleX(1);
+            }
+            50% {
+                transform: translateY(-5px) scaleX(1.05);
+            }
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        /* 添加按钮活动状态样式 */
+        button.active {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="sky"></div>
+    <div class="sea">
+        <div class="sun"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+    
+    <div class="controls">
+        <button id="startBtn">开始</button>
+        <button id="stopBtn" class="active">停止</button>
+    </div>
+
+    <script>
+        // 获取所有动画元素
+        const sky = document.querySelector('.sky');
+        const sea = document.querySelector('.sea');
+        const sun = document.querySelector('.sun');
+        const waves = document.querySelectorAll('.wave');
+        
+        // 获取控制按钮
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        
+        // 停止动画函数
+        function stopAnimation() {
+            // 暂停所有动画
+            sky.style.animationPlayState = 'paused';
+            sea.style.animationPlayState = 'paused';
+            sun.style.animationPlayState = 'paused';
+            waves.forEach(wave => {
+                wave.style.animationPlayState = 'paused';
+            });
+            
+            // 更新按钮状态
+            startBtn.classList.remove('active');
+            stopBtn.classList.add('active');
+        }
+        
+        // 开始动画函数
+        function startAnimation() {
+            // 恢复所有动画
+            sky.style.animationPlayState = 'running';
+            sea.style.animationPlayState = 'running';
+            sun.style.animationPlayState = 'running';
+            waves.forEach(wave => {
+                wave.style.animationPlayState = 'running';
+            });
+            
+            // 更新按钮状态
+            startBtn.classList.add('active');
+            stopBtn.classList.remove('active');
+        }
+        
+        // 初始化 - 默认停止动画
+        stopAnimation();
+        
+        // 添加按钮事件监听器
+        startBtn.addEventListener('click', startAnimation);
+        stopBtn.addEventListener('click', stopAnimation);
+        
+        // 防止点击穿透
+        startBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+        });
+        
+        stopBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
