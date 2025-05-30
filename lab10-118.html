@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日出东方动画</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f0f8ff;
+            font-family: 'Arial', sans-serif;
+        }
+       
+        h1 {
+            color: #00ffff;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+       
+        .container {
+            position: relative;
+            width: 800px;
+            height: 500px;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            background-color: #e6f7ff;
+            overflow: hidden;
+        }
+       
+        canvas {
+            display: block;
+        }
+       
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+       
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #00ff7f;
+            color: white;
+            transition: all 0.3s;
+        }
+       
+        button:hover {
+            background-color: #3cb371;
+        }
+       
+        button.stop {
+            background-color: #c71585;
+        }
+    </style>
+</head>
+<body>
+    <h1>日出东方动画</h1>
+   
+    <div class="container">
+        <canvas id="sunriseCanvas" width="800" height="500"></canvas>
+    </div>
+   
+    <div class="controls">
+        <button id="startBtn">播放动画</button>
+        <button id="stopBtn" class="stop">暂停动画</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('sunriseCanvas');
+        const ctx = canvas.getContext('2d');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+       
+        const sun = {
+            x: canvas.width / 2,
+            y: canvas.height * 0.8,
+            radius: 50,
+            speed: 0.3,
+            maxHeight: canvas.height * 0.25
+        };
+        
+        let seaLevel = canvas.height * 0.7;
+        let waveOffset = 0;
+        let animationId;
+        let isAnimating = false;
+        let skyGradient;
+        
+        function initSkyGradient() {
+            skyGradient = ctx.createLinearGradient(0, 0, 0, seaLevel);
+            skyGradient.addColorStop(0, '#003366');
+            skyGradient.addColorStop(0.5, '#0066cc');
+            skyGradient.addColorStop(1, '#3399ff');
+        }
+        
+        function drawInitialScene() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = skyGradient;
+            ctx.fillRect(0, 0, canvas.width, seaLevel);
+            
+            ctx.beginPath();
+            ctx.arc(sun.x, sun.y, sun.radius, Math.PI, 0);
+            ctx.fillStyle = 'rgba(255, 180, 50, 0.8)';
+            ctx.fill();
+            
+            const seaGradient = ctx.createLinearGradient(0, seaLevel, 0, canvas.height);
+            seaGradient.addColorStop(0, '#0066cc');
+            seaGradient.addColorStop(1, '#003366');
+            ctx.fillStyle = seaGradient;
+            ctx.fillRect(0, seaLevel, canvas.width, canvas.height - seaLevel);
+            
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            for (let x = 0; x <= canvas.width; x += 10) {
+                const y = seaLevel + Math.sin(x * 0.02 + waveOffset) * 8;
+                if (x === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.stroke();
+        }
+        
+        function drawAnimatedScene() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = skyGradient;
+            ctx.fillRect(0, 0, canvas.width, seaLevel);
+            
+            ctx.beginPath();
+            ctx.arc(sun.x, sun.y, sun.radius, 0, Math.PI * 2);
+            
+            const sunHeightRatio = 1 - (sun.y - sun.maxHeight) / (seaLevel - sun.maxHeight);
+            const sunColor = `rgba(255, ${Math.floor(150 + 105 * sunHeightRatio)}, ${Math.floor(100 * sunHeightRatio)}, ${0.8 + 0.2 * sunHeightRatio})`;
+            
+            const sunGradient = ctx.createRadialGradient(
+                sun.x, sun.y, sun.radius * 0.3,
+                sun.x, sun.y, sun.radius
+            );
+            sunGradient.addColorStop(0, sunColor);
+            sunGradient.addColorStop(1, 'rgba(255, 255, 200, 0.3)');
+            
+            ctx.fillStyle = sunGradient;
+            ctx.fill();
+            
+            const seaGradient = ctx.createLinearGradient(0, seaLevel, 0, canvas.height);
+            seaGradient.addColorStop(0, '#0066cc');
+            seaGradient.addColorStop(1, '#003366');
+            ctx.fillStyle = seaGradient;
+            ctx.fillRect(0, seaLevel, canvas.width, canvas.height - seaLevel);
+            
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            for (let x = 0; x <= canvas.width; x += 10) {
+                const y = seaLevel + Math.sin(x * 0.02 + waveOffset) * 8;
+                if (x === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.stroke();
+            waveOffset += 0.05;
+            
+            if (sun.y < seaLevel) {
+                ctx.save();
+                ctx.globalAlpha = 0.3 * (1 - sun.y / seaLevel);
+                ctx.beginPath();
+                ctx.ellipse(sun.x, seaLevel * 2 - sun.y, sun.radius, sun.radius * 0.3, 0, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 220, 100, 0.4)';
+                ctx.fill();
+                ctx.restore();
+            }
+            
+            if (sun.y < seaLevel) {
+                ctx.save();
+                ctx.globalAlpha = 0.15 * (1 - sun.y / seaLevel);
+                ctx.fillStyle = 'rgba(255, 240, 150, 0.5)';
+                for (let i = 0; i < 8; i++) {
+                    const angle = Math.PI * 2 * i / 8;
+                    const length = 150 * (1 - sun.y / seaLevel);
+                    ctx.beginPath();
+                    ctx.moveTo(sun.x, sun.y);
+                    ctx.lineTo(
+                        sun.x + Math.cos(angle) * length,
+                        sun.y + Math.sin(angle) * length
+                    );
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                }
+                ctx.restore();
+            }
+        }
+        
+        function update() {
+            sun.y -= sun.speed;
+            
+            if (sun.y < sun.maxHeight) {
+				sun.y = canvas.height * 0.8;
+            }
+            
+            const skyRatio = Math.min(1, (seaLevel - sun.y) / (seaLevel - sun.maxHeight));
+            skyGradient = ctx.createLinearGradient(0, 0, 0, seaLevel);
+            skyGradient.addColorStop(0, `rgba(0, ${Math.floor(80 + 80 * skyRatio)}, ${Math.floor(150 + 80 * skyRatio)}, 1)`);
+            skyGradient.addColorStop(0.5, `rgba(0, ${Math.floor(120 + 80 * skyRatio)}, ${Math.floor(200 + 40 * skyRatio)}, 1)`);
+            skyGradient.addColorStop(1, `rgba(100, ${Math.floor(180 + 40 * skyRatio)}, ${Math.floor(255)}, 1)`);
+            
+            drawAnimatedScene();
+            
+            if (isAnimating) {
+                animationId = requestAnimationFrame(update);
+            }
+        }
+        
+        function startAnimation() {
+            if (!isAnimating) {
+                isAnimating = true;
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+                update();
+            }
+        }
+        
+        function stopAnimation() {
+            if (isAnimating) {
+                isAnimating = false;
+                cancelAnimationFrame(animationId);
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+            }
+        }
+        
+        initSkyGradient();
+        drawInitialScene();
+        
+        startBtn.addEventListener('click', startAnimation);
+        stopBtn.addEventListener('click', stopAnimation);
+        stopBtn.disabled = true;
+    </script>
+</body>
+</html>
