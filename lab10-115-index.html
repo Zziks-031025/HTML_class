@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>日出东方动画</title>
-    <link rel="stylesheet" href="lab10-115-style.css">
+    <link rel="stylesheet"  href="lab10-115-style.css">	    
 </head>
 <body>
     <div class="container">
@@ -23,7 +23,7 @@
         const startBtn = document.getElementById('startBtn');
         const resetBtn = document.getElementById('resetBtn');
         
-        let sunY = canvas.height; // 太阳初始位置在画布底部
+        let sunY = canvas.height + 50; // 太阳初始位置在画布底部下方
         let animationId = null;
         let isAnimating = false;
         
@@ -47,7 +47,7 @@
         resetBtn.addEventListener('click', function() {
             isAnimating = false;
             cancelAnimationFrame(animationId);
-            sunY = canvas.height;
+            sunY = canvas.height + 50;
             drawScene();
             startBtn.textContent = '开始动画';
         });
@@ -95,18 +95,46 @@
             }
             
             ctx.fillStyle = skyGradient;
-            ctx.fillRect(0, 0, canvas.width, skyHeight);
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // 绘制海洋
+            // 绘制太阳
+            const sunRadius = 40;
+            const sunX = canvas.width / 2;
+            
+            // 只有太阳在画布内时才绘制
+            if (sunY + sunRadius > 0) {
+                // 太阳光晕
+                const sunGradient = ctx.createRadialGradient(
+                    sunX, sunY, sunRadius * 0.2,
+                    sunX, sunY, sunRadius * 2
+                );
+                
+                sunGradient.addColorStop(0, '#ffff00');
+                sunGradient.addColorStop(0.5, 'rgba(255, 255, 0, 0.5)');
+                sunGradient.addColorStop(1, 'rgba(255, 255, 0, 0)');
+                
+                ctx.fillStyle = sunGradient;
+                ctx.beginPath();
+                ctx.arc(sunX, sunY, sunRadius * 2, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // 太阳主体
+                ctx.fillStyle = '#ff5e0e';
+                ctx.beginPath();
+                ctx.arc(sunX, sunY, sunRadius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            // 绘制海洋（半透明）
             const seaGradient = ctx.createLinearGradient(0, canvas.height - 100, 0, canvas.height);
-            seaGradient.addColorStop(0, '#00008b');
-            seaGradient.addColorStop(1, '#1e90ff');
+            seaGradient.addColorStop(0, 'rgba(0, 0, 139, 0.7)'); // 半透明深蓝
+            seaGradient.addColorStop(1, 'rgba(30, 144, 255, 0.7)'); // 半透明道奇蓝
             
             ctx.fillStyle = seaGradient;
             ctx.fillRect(0, canvas.height - 100, canvas.width, 100);
             
-            // 绘制波浪
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+            // 绘制波浪（半透明）
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
             ctx.lineWidth = 2;
             
             for (let i = 0; i < 5; i++) {
@@ -126,35 +154,10 @@
                 ctx.stroke();
             }
             
-            // 绘制太阳
-            const sunRadius = 40;
-            const sunX = canvas.width / 2;
-            
-            // 太阳光晕
-            const sunGradient = ctx.createRadialGradient(
-                sunX, sunY, sunRadius * 0.2,
-                sunX, sunY, sunRadius * 2
-            );
-            
-            sunGradient.addColorStop(0, '#ffff00');
-            sunGradient.addColorStop(0.5, 'rgba(255, 255, 0, 0.5)');
-            sunGradient.addColorStop(1, 'rgba(255, 255, 0, 0)');
-            
-            ctx.fillStyle = sunGradient;
-            ctx.beginPath();
-            ctx.arc(sunX, sunY, sunRadius * 2, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // 太阳主体
-            ctx.fillStyle = '#ffff00';
-            ctx.beginPath();
-            ctx.arc(sunX, sunY, sunRadius, 0, Math.PI * 2);
-            ctx.fill();
-            
             // 太阳在水中的倒影
-            if (sunY > canvas.height - 100 - sunRadius) {
+            if (sunY > canvas.height - 100 - sunRadius && sunY < canvas.height + sunRadius) {
                 ctx.save();
-                ctx.globalAlpha = 0.3;
+                ctx.globalAlpha = 0.2;
                 
                 const reflectionY = canvas.height - (sunY - (canvas.height - 100)) + 100;
                 
@@ -173,7 +176,7 @@
                 ctx.fill();
                 
                 // 反射主体
-                ctx.fillStyle = 'rgba(255, 255, 0, 0.3)';
+                ctx.fillStyle = 'rgba(255, 255, 0, 0.2)';
                 ctx.beginPath();
                 ctx.arc(sunX, reflectionY, sunRadius * 0.8, 0, Math.PI * 2);
                 ctx.fill();
