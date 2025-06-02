@@ -9,39 +9,47 @@
             height: 100%;
             margin: 0;
             overflow: hidden;
+            background-color: #000;
         }
 
         .sky {
             height: 50%;
-            background: linear-gradient(to bottom, #0a0a23, #1a1a50);
+            background: linear-gradient(to bottom, #05051a, #0a0a23);
             position: relative;
             z-index: 1;
-            animation: sky-color 6s infinite ease-in-out;
-            animation-play-state: paused; /* 默认暂停动画 */
+            animation: sky-color 8s infinite ease-in-out;
+            animation-play-state: paused;
         }
 
         .sea {
             height: 50%;
-            background: linear-gradient(to bottom, #003973, #002040);
+            background: linear-gradient(to bottom, #001a33, #002040);
             position: relative;
-            z-index: 2;
-            animation: sea-color 6s infinite ease-in-out;
-            animation-play-state: paused; /* 默认暂停动画 */
+            z-index: 3;
+            animation: sea-color 8s infinite ease-in-out;
+            animation-play-state: paused;
         }
 
         .sun {
             width: 100px;
             height: 100px;
-            background: radial-gradient(circle, #ffd700, #ff8c00);
             border-radius: 50%;
             position: absolute;
             bottom: -50px;
-            left: 50%;
+            left: 30%;
             transform: translateX(-50%);
-            box-shadow: 0 0 30px 10px rgba(255, 165, 0, 0.5);
-            animation: sunrise 6s infinite ease-in-out;
-            animation-play-state: paused; /* 默认暂停动画 */
-            z-index: 3;
+            box-shadow: 0 0 15px 5px rgba(255, 102, 0, 0.5);
+            animation: sunrise 8s infinite;
+            animation-play-state: paused;
+            transition: all 0.3s;
+        }
+
+        .sun-behind {
+            z-index: 2;
+        }
+
+        .sun-front {
+            z-index: 4;
         }
 
         .wave {
@@ -52,96 +60,255 @@
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             animation: wave 3s infinite ease-in-out;
-            animation-play-state: paused; /* 默认暂停动画 */
+            animation-play-state: paused;
         }
 
         .wave:nth-child(2) {
             bottom: 10px;
             animation-delay: 1s;
             background: rgba(255, 255, 255, 0.05);
-            animation-play-state: paused; /* 默认暂停动画 */
+            animation-play-state: paused;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            filter: blur(5px);
+            z-index: 5;
+            transition: transform 0.3s ease;
+            user-select: none;
+            cursor: move;
+        }
+
+        .cloud.dragging {
+            cursor: grabbing;
+            z-index: 10;
+        }
+
+        .cloud:before, .cloud:after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+        }
+
+        .cloud.type1 {
+            width: 120px;
+            height: 40px;
+        }
+        
+        .cloud.type1:before {
+            width: 60px;
+            height: 60px;
+            top: -30px;
+            left: 15px;
+        }
+        
+        .cloud.type1:after {
+            width: 50px;
+            height: 50px;
+            top: -25px;
+            right: 20px;
+        }
+
+        .cloud.type2 {
+            width: 100px;
+            height: 30px;
+        }
+        
+        .cloud.type2:before {
+            width: 50px;
+            height: 50px;
+            top: -25px;
+            left: 10px;
+        }
+        
+        .cloud.type2:after {
+            width: 40px;
+            height: 40px;
+            top: -20px;
+            right: 15px;
+        }
+
+        .cloud.type3 {
+            width: 140px;
+            height: 45px;
+        }
+        
+        .cloud.type3:before {
+            width: 70px;
+            height: 70px;
+            top: -35px;
+            left: 20px;
+        }
+        
+        .cloud.type3:after {
+            width: 60px;
+            height: 60px;
+            top: -30px;
+            right: 25px;
         }
 
         @keyframes sunrise {
             0% {
+                background: radial-gradient(circle, #ff4500, #cc3700);
                 bottom: -50px;
-                opacity: 0;
+                left: 30%;
+                opacity: 0.4;
+                transform: translateX(-50%) scale(0.7);
+                box-shadow: 0 0 15px 5px rgba(255, 69, 0, 0.4);
             }
             15% {
-                opacity: 1;
+                background: radial-gradient(circle, #ff6600, #e65c00);
+                bottom: -20px;
+                opacity: 0.6;
+                transform: translateX(-50%) scale(0.8);
+                box-shadow: 0 0 20px 7px rgba(255, 102, 0, 0.5);
             }
-            85% {
+            25% {
+                background: radial-gradient(circle, #ff8800, #ff7700);
+                bottom: -10px;
+                opacity: 0.8;
+                transform: translateX(-50%) scale(0.9);
+                box-shadow: 0 0 25px 10px rgba(255, 136, 0, 0.6);
+            }
+            30% {
+                background: radial-gradient(circle, #ff9900, #ff7700);
+                bottom: 0;
                 opacity: 1;
+                transform: translateX(-50%) scale(1);
+                box-shadow: 0 0 30px 12px rgba(255, 153, 0, 0.7);
+            }
+            40% {
+                background: radial-gradient(circle, #ffa500, #ff9900);
+                bottom: 15%;
+                left: 40%;
+                transform: translateX(-50%) scale(1.05);
+                box-shadow: 0 0 35px 15px rgba(255, 165, 0, 0.8);
+            }
+            50% {
+                background: radial-gradient(circle, #ffb300, #ffaa00);
+                bottom: 30%;
+                left: 45%;
+                transform: translateX(-50%) scale(1.1);
+                box-shadow: 0 0 40px 18px rgba(255, 179, 0, 0.8);
+            }
+            70% {
+                background: radial-gradient(circle, #ffcc00, #ffbb00);
+                bottom: 50%;
+                left: 52%;
+                transform: translateX(-50%) scale(1.15);
+                box-shadow: 0 0 45px 20px rgba(255, 204, 0, 0.9);
+            }
+            80% {
+                background: radial-gradient(circle, #ffdd00, #ffcc00);
+                bottom: 70%;
+                left: 55%;
+                transform: translateX(-50%) scale(1.2);
+                box-shadow: 0 0 50px 22px rgba(255, 221, 0, 0.9);
             }
             100% {
+                background: radial-gradient(circle, #ffff00, #ffdd00);
                 bottom: calc(100% + 50px);
-                opacity: 0;
+                left: 60%;
+                opacity: 0.9;
+                transform: translateX(-50%) scale(1.3);
+                box-shadow: 0 0 55px 25px rgba(255, 255, 0, 0.95);
             }
         }
 
         @keyframes sky-color {
             0% {
-                background: linear-gradient(to bottom, #0a0a23, #1a1a50);
+                background: linear-gradient(to bottom, #05051a, #0a0a23, #14143d);
             }
             10% {
-                background: linear-gradient(to bottom, #0a0a23, #1a1a50, #2a2a7a);
+                background: linear-gradient(to bottom, #0a0a23, #14143d, #1a1a50);
             }
             20% {
-                background: linear-gradient(to bottom, #1a1a50, #2a2a7a, #3a3a9a);
+                background: linear-gradient(to bottom, #14143d, #1a1a50, #232366);
             }
             30% {
-                background: linear-gradient(to bottom, #2a2a7a, #3a3a9a, #4a4ab0);
+                background: linear-gradient(to bottom, #1a1a50, #232366, #2d2d80);
+                filter: brightness(1.1);
             }
             40% {
-                background: linear-gradient(to bottom, #3a3a9a, #4a4ab0, #5a5ac0);
+                background: linear-gradient(to bottom, #232366, #2d2d80, #373799);
+                filter: brightness(1.2);
             }
             50% {
-                background: linear-gradient(to bottom, #4a4ab0, #5a5ac0, #6a6ad0);
+                background: linear-gradient(to bottom, #2d2d80, #373799, #4040b3);
+                filter: brightness(1.3);
             }
             60% {
-                background: linear-gradient(to bottom, #5a5ac0, #6a6ad0, #7a7ae0);
+                background: linear-gradient(to bottom, #373799, #4040b3, #4a4ad9);
+                filter: brightness(1.4);
             }
             70% {
-                background: linear-gradient(to bottom, #6a6ad0, #7a7ae0, #8a8aff);
+                background: linear-gradient(to bottom, #4040b3, #4a4ad9, #5555ff);
+                filter: brightness(1.5);
             }
             80% {
-                background: linear-gradient(to bottom, #7a7ae0, #8a8aff, #9a9aff);
+                background: linear-gradient(to bottom, #4a4ad9, #5555ff, #6666ff);
+                filter: brightness(1.6);
             }
             90% {
-                background: linear-gradient(to bottom, #8a8aff, #9a9aff, #aaaaff);
+                background: linear-gradient(to bottom, #5555ff, #6666ff, #7777ff);
+                filter: brightness(1.7);
             }
             100% {
-                background: linear-gradient(to bottom, #0a0a23, #1a1a50);
+                background: linear-gradient(to bottom, #05051a, #0a0a23, #14143d);
             }
         }
 
         @keyframes sea-color {
             0% {
-                background: linear-gradient(to bottom, #003973, #002040);
+                background: linear-gradient(to bottom, #000f1a, #001a33, #002040);
             }
-            20% {
-                background: linear-gradient(to bottom, #003973, #002a55);
+            15% {
+                background: linear-gradient(to bottom, #001a33, #002040, #00264d);
+            }
+            30% {
+                background: linear-gradient(to bottom, #002040, #00264d, #002d59);
+                filter: brightness(1.1);
             }
             40% {
-                background: linear-gradient(to bottom, #004488, #003366);
+                background: linear-gradient(to bottom, #00264d, #002d59, #003366);
+                filter: brightness(1.2);
+            }
+            50% {
+                background: linear-gradient(to bottom, #002d59, #003366, #003973);
+                filter: brightness(1.3);
             }
             60% {
-                background: linear-gradient(to bottom, #004d99, #003d7a);
+                background: linear-gradient(to bottom, #003366, #003973, #004080);
+                filter: brightness(1.4);
+            }
+            70% {
+                background: linear-gradient(to bottom, #003973, #004080, #00478f);
+                filter: brightness(1.5);
             }
             80% {
-                background: linear-gradient(to bottom, #0059b3, #00478f);
+                background: linear-gradient(to bottom, #004080, #00478f, #004d99);
+                filter: brightness(1.6);
+            }
+            90% {
+                background: linear-gradient(to bottom, #00478f, #004d99, #0052a3);
+                filter: brightness(1.7);
             }
             100% {
-                background: linear-gradient(to bottom, #003973, #002040);
+                background: linear-gradient(to bottom, #000f1a, #001a33, #002040);
             }
         }
 
         @keyframes wave {
             0%, 100% {
                 transform: translateY(0) scaleX(1);
+                opacity: 0.1;
             }
             50% {
                 transform: translateY(-5px) scaleX(1.05);
+                opacity: 0.15;
             }
         }
 
@@ -165,6 +332,7 @@
             cursor: pointer;
             backdrop-filter: blur(5px);
             transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         button:hover {
@@ -173,9 +341,9 @@
 
         button:active {
             transform: scale(0.95);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
-        /* 添加按钮活动状态样式 */
         button.active {
             background-color: rgba(255, 255, 255, 0.4);
             transform: scale(1.05);
@@ -185,10 +353,10 @@
 <body>
     <div class="sky"></div>
     <div class="sea">
-        <div class="sun"></div>
         <div class="wave"></div>
         <div class="wave"></div>
     </div>
+    <div class="sun sun-behind"></div>
     
     <div class="controls">
         <button id="startBtn">开始</button>
@@ -196,61 +364,272 @@
     </div>
 
     <script>
-        // 获取所有动画元素
         const sky = document.querySelector('.sky');
         const sea = document.querySelector('.sea');
         const sun = document.querySelector('.sun');
         const waves = document.querySelectorAll('.wave');
-        
-        // 获取控制按钮
         const startBtn = document.getElementById('startBtn');
         const stopBtn = document.getElementById('stopBtn');
-        
-        // 停止动画函数
+        let clouds = [];
+        let isDragging = false;
+        let draggedCloud = null;
+        let offsetX = 0, offsetY = 0;
+        let animationId = null;
+        let isAnimationRunning = false;
+
+        // 云朵移动参数
+        const cloudMoveParams = new Map();
+
+        function createClouds() {
+            clouds.forEach(cloud => cloud.remove());
+            clouds = [];
+            cloudMoveParams.clear();
+            
+            const cloudCount = Math.floor(Math.random() * 5) + 3; // 生成3-7朵云
+            
+            for (let i = 0; i < cloudCount; i++) {
+                const cloud = document.createElement('div');
+                const cloudTypes = ['type1', 'type2', 'type3'];
+                const cloudType = cloudTypes[Math.floor(Math.random() * cloudTypes.length)];
+                const cloudHeight = Math.random() * 60 + 10; // 垂直位置10%-70%
+                const opacity = Math.random() * 0.6 + 0.4; // 透明度0.4-1
+                
+                cloud.className = `cloud ${cloudType}`;
+                cloud.style.top = `${cloudHeight}%`;
+                cloud.style.left = `${Math.random() * 100}%`; // 随机水平位置
+                cloud.style.opacity = opacity;
+                
+                sky.appendChild(cloud);
+                clouds.push(cloud);
+                
+                // 为每朵云设置随机移动参数
+                cloudMoveParams.set(cloud, {
+                    speedX: (Math.random() - 0.5) * 0.5, // -0.5 到 0.5
+                    speedY: (Math.random() - 0.5) * 0.25, // -0.25 到 0.25
+                    directionChangeTimer: 0,
+                    directionChangeInterval: Math.random() * 5000 + 3000 // 3-8秒
+                });
+            }
+            
+            setupDraggable(); // 设置云朵可拖动
+            addCloudInteractions(); // 添加云朵交互效果
+        }
+
+        function setupDraggable() {
+            clouds.forEach(cloud => {
+                // 鼠标按下开始拖动
+                cloud.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    draggedCloud = cloud;
+                    offsetX = e.clientX - cloud.getBoundingClientRect().left;
+                    offsetY = e.clientY - cloud.getBoundingClientRect().top;
+                    cloud.classList.add('dragging');
+                    
+                    e.preventDefault();
+                });
+            });
+
+            // 鼠标移动时拖动云朵
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging || !draggedCloud) return;
+                
+                const skyRect = sky.getBoundingClientRect();
+                const cloudRect = draggedCloud.getBoundingClientRect();
+                
+                // 计算新位置（相对于天空容器）
+                let newLeft = e.clientX - skyRect.left - offsetX;
+                let newTop = e.clientY - skyRect.top - offsetY;
+                
+                // 限制在天空区域内
+                newLeft = Math.max(0, Math.min(newLeft, skyRect.width - cloudRect.width));
+                newTop = Math.max(0, Math.min(newTop, skyRect.height - cloudRect.height));
+                
+                // 设置新位置
+                draggedCloud.style.left = `${newLeft}px`;
+                draggedCloud.style.top = `${newTop}px`;
+                
+                e.preventDefault();
+            });
+
+            // 鼠标松开结束拖动
+            document.addEventListener('mouseup', () => {
+                if (!isDragging || !draggedCloud) return;
+                
+                isDragging = false;
+                draggedCloud.classList.remove('dragging');
+                draggedCloud = null;
+            });
+
+            // 触摸设备支持
+            clouds.forEach(cloud => {
+                cloud.addEventListener('touchstart', (e) => {
+                    isDragging = true;
+                    draggedCloud = cloud;
+                    offsetX = e.touches[0].clientX - cloud.getBoundingClientRect().left;
+                    offsetY = e.touches[0].clientY - cloud.getBoundingClientRect().top;
+                    cloud.classList.add('dragging');
+                    
+                    e.preventDefault();
+                });
+            });
+
+            document.addEventListener('touchmove', (e) => {
+                if (!isDragging || !draggedCloud) return;
+                
+                const skyRect = sky.getBoundingClientRect();
+                const cloudRect = draggedCloud.getBoundingClientRect();
+                const touch = e.touches[0];
+                
+                // 计算新位置（相对于天空容器）
+                let newLeft = touch.clientX - skyRect.left - offsetX;
+                let newTop = touch.clientY - skyRect.top - offsetY;
+                
+                // 限制在天空区域内
+                newLeft = Math.max(0, Math.min(newLeft, skyRect.width - cloudRect.width));
+                newTop = Math.max(0, Math.min(newTop, skyRect.height - cloudRect.height));
+                
+                // 设置新位置
+                draggedCloud.style.left = `${newLeft}px`;
+                draggedCloud.style.top = `${newTop}px`;
+                
+                e.preventDefault();
+            });
+
+            document.addEventListener('touchend', () => {
+                if (!isDragging || !draggedCloud) return;
+                
+                isDragging = false;
+                draggedCloud.classList.remove('dragging');
+                draggedCloud = null;
+            });
+        }
+
+        function addCloudInteractions() {
+            clouds.forEach(cloud => {
+                // 鼠标悬停时云朵微动效果
+                cloud.addEventListener('mousemove', (e) => {
+                    if (isDragging) return;
+                    
+                    const rect = cloud.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width/2;
+                    const y = e.clientY - rect.top - rect.height/2;
+                    
+                    const offsetX = (x / rect.width) * 8 - 4;
+                    const offsetY = (y / rect.height) * 8 - 4;
+                    
+                    cloud.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(1.03)`;
+                });
+                
+                cloud.addEventListener('mouseout', () => {
+                    if (isDragging) return;
+                    cloud.style.transform = '';
+                });
+            });
+        }
+
+        function moveClouds(timestamp) {
+            if (!isAnimationRunning) return;
+            
+            clouds.forEach(cloud => {
+                if (cloud === draggedCloud) return; // 正在拖动的云不自动移动
+                
+                const params = cloudMoveParams.get(cloud);
+                const rect = cloud.getBoundingClientRect();
+                const skyRect = sky.getBoundingClientRect();
+                
+                // 更新方向变化计时器
+                params.directionChangeTimer += 16; // 假设每帧16ms
+                
+                // 随机改变方向
+                if (params.directionChangeTimer >= params.directionChangeInterval) {
+                    params.speedX = (Math.random() - 0.5) * 0.5;
+                    params.speedY = (Math.random() - 0.5) * 0.25;
+                    params.directionChangeTimer = 0;
+                    params.directionChangeInterval = Math.random() * 5000 + 3000;
+                }
+                
+                // 计算新位置
+                let newLeft = rect.left + params.speedX;
+                let newTop = rect.top + params.speedY;
+                
+                // 边界检测 - 水平方向
+                if (newLeft < -rect.width) {
+                    newLeft = skyRect.width;
+                } else if (newLeft > skyRect.width) {
+                    newLeft = -rect.width;
+                }
+                
+                // 边界检测 - 垂直方向
+                if (newTop < 0) {
+                    newTop = 0;
+                    params.speedY = Math.abs(params.speedY); // 反弹
+                } else if (newTop > skyRect.height - rect.height) {
+                    newTop = skyRect.height - rect.height;
+                    params.speedY = -Math.abs(params.speedY); // 反弹
+                }
+                
+                // 设置新位置
+                cloud.style.left = `${newLeft}px`;
+                cloud.style.top = `${newTop}px`;
+            });
+            
+            animationId = requestAnimationFrame(moveClouds);
+        }
+
         function stopAnimation() {
-            // 暂停所有动画
+            isAnimationRunning = false;
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
+            
             sky.style.animationPlayState = 'paused';
             sea.style.animationPlayState = 'paused';
             sun.style.animationPlayState = 'paused';
-            waves.forEach(wave => {
-                wave.style.animationPlayState = 'paused';
-            });
+            waves.forEach(wave => wave.style.animationPlayState = 'paused');
             
-            // 更新按钮状态
+            sun.classList.remove('sun-front');
+            sun.classList.add('sun-behind');
+            
             startBtn.classList.remove('active');
             stopBtn.classList.add('active');
         }
-        
-        // 开始动画函数
+
         function startAnimation() {
-            // 恢复所有动画
+            if (!isAnimationRunning) {
+                isAnimationRunning = true;
+                animationId = requestAnimationFrame(moveClouds);
+            }
+            
             sky.style.animationPlayState = 'running';
             sea.style.animationPlayState = 'running';
             sun.style.animationPlayState = 'running';
-            waves.forEach(wave => {
-                wave.style.animationPlayState = 'running';
-            });
+            waves.forEach(wave => wave.style.animationPlayState = 'running');
             
-            // 更新按钮状态
             startBtn.classList.add('active');
             stopBtn.classList.remove('active');
         }
-        
-        // 初始化 - 默认停止动画
+
+        // 初始化场景
+        createClouds();
         stopAnimation();
         
-        // 添加按钮事件监听器
+        // 事件监听
         startBtn.addEventListener('click', startAnimation);
         stopBtn.addEventListener('click', stopAnimation);
         
-        // 防止点击穿透
-        startBtn.addEventListener('touchstart', function(e) {
+        // 触摸设备支持
+        startBtn.addEventListener('touchstart', (e) => {
             e.preventDefault();
+            startAnimation();
+        });
+        stopBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            stopAnimation();
         });
         
-        stopBtn.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-        });
+        // 窗口大小变化时重新生成云朵
+        window.addEventListener('resize', createClouds);
     </script>
 </body>
 </html>
